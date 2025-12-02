@@ -30,7 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const A4A = "for value in values {};";
     const A4B = "for (let values of value) {};";
     const A4C = "forEach (let value of values) {};";
-    const A4D = "for (let value of values) {};"; 
+    const A4D = "for (let value of values) {};";
+
+    const Q5 = "How do you prevent default HTML validation of a form?";
+    const A5A = "form.validate = false;";
+    const A5B = "form.noValidate = true;";
+    const A5C = "form.setCustomValidity = true;"
+    const A5D = "form.customValidity = true;";
+
+    const Q6 = ""
 
 
 
