@@ -84,6 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const A10C = "#subtotal = null;";
                 const A10D = "@subtotal = null;";
 
+                const Q11 = "What's the correct way to trigger an event when an element is clicked?";
+                const A11A = "element.addEventListener(\"mouseover\", () => {});";
+                const A11B = "element.addEventListener(\"click\", () => {});";
+                const A11C = "element.addEventListener(\"onclick\", () => {});";
+                const A11D = "element.addEventListener(\"mouseclick\", () => {});";
+
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
