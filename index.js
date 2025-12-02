@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const A2C = "Math.floor(Math.random() * 100);";
     const A2D = "Math.ceil(Math.randomFloat() * 100);";
 
+    const Q3 = "How to grab the text from an element where the element is assigned to the variable \"element\"?";
+    const A3A = "element.textContent;";
+    const A3B = "element.innerText;";
+    const A3C = "element.value;";
+    const A3D = "getText(element);";
+
 
 
     const Q1choices = [A1A, A1B, A1C, A1D];
