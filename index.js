@@ -44,7 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const A6C = "text = \"Error: (insert reason)\"\balert(text);";
     const A6D = "text = \"Error: (insert reason)\"\berror(text);";
 
+    const Q7 = "How do you extend another class named Employee with the class Cashier?"
+    const A7A = "class Cashier inherits Employee {};";
+    const A7B = "subclass Cashier extends Employee ();";
+    const A7C = "class Employee extends Cashier {};";
+    const A7D = "class Cashier extends Employee ();";
 
+    
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
