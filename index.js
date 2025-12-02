@@ -78,7 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 "   json.parse(name);\n"+
                 "});";
 
-    console.log(A9A);
+                const Q10 = "For a class, how do you set attribute subtotal as private?";
+                const A10A = "private subtotal = null;";
+                const A10B = "subtotal.private = null;";
+                const A10C = "#subtotal = null;";
+                const A10D = "@subtotal = null;";
+
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
