@@ -48,9 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const A7A = "class Cashier inherits Employee {};";
     const A7B = "subclass Cashier extends Employee ();";
     const A7C = "class Employee extends Cashier {};";
-    const A7D = "class Cashier extends Employee ();";
+    const A7D = "class Cashier extends Employee {};";
 
-    
+    const Q8 = "What should a non-default import statement to import class Animal look like?";
+    const A8A = "from \"./lib_example.js\" import Animal;";
+    const A8B = "import Animal from \"./lib_example.js\";";
+    const A8C = "import {Animal} from \"lib_example\";";
+    const A8D = "import {Animal} from \"./lib_example.js\";";
+
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
