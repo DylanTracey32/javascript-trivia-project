@@ -78,17 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 "   json.parse(name);\n"+
                 "});";
 
-                const Q10 = "For a class, how do you set attribute subtotal as private?";
-                const A10A = "private subtotal = null;";
-                const A10B = "subtotal.private = null;";
-                const A10C = "#subtotal = null;";
-                const A10D = "@subtotal = null;";
+    const Q10 = "For a class, how do you set attribute subtotal as private?";
+    const A10A = "private subtotal = null;";
+    const A10B = "subtotal.private = null;";
+    const A10C = "#subtotal = null;";
+    const A10D = "@subtotal = null;";
 
-                const Q11 = "What's the correct way to trigger an event when an element is clicked?";
-                const A11A = "element.addEventListener(\"mouseover\", () => {});";
-                const A11B = "element.addEventListener(\"click\", () => {});";
-                const A11C = "element.addEventListener(\"onclick\", () => {});";
-                const A11D = "element.addEventListener(\"mouseclick\", () => {});";
+    const Q11 = "What's the correct way to trigger an event when an element is clicked?";
+    const A11A = "element.addEventListener(\"mouseover\", () => {});";
+    const A11B = "element.addEventListener(\"click\", () => {});";
+    const A11C = "element.addEventListener(\"onclick\", () => {});";
+    const A11D = "element.addEventListener(\"mouseclick\", () => {});";
+
+    const Q12 = "How do you use the array method reduce() to get the sum of array numbers?";
+    const A12A = "const sum = numbers.reduce(elem => elem + elem, numbers.length);";
+    const A12B = "const sum = numbers.reduce({total, elem} => elem += elem, total);";
+    const A12C = "const sum = numbers.reduce(elem => elem += elem, 0);";
+    const A12D = "const sum = numbers.reduce({total, elem} => total + elem, 0);";
 
     const Q1choices = [A1A, A1B, A1C, A1D];
 
