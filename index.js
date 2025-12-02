@@ -56,6 +56,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const A8C = "import {Animal} from \"lib_example\";";
     const A8D = "import {Animal} from \"./lib_example.js\";";
 
+    const Q9 = "Which should setting up a route for a POST request look like?";
+    const A9A = "app.post(\"/names\", (request, response) => {\n"+
+                "   const name = request.body.name;\n"+
+                "   names.push(name);\n"+
+                "   response.json(name);\n"+
+                "});";
+    const A9B = "app.post(\"/names\", (request, response) => {\n"+
+                "   const name = response.body.name;\n"+
+                "   names.push(name);\n"+
+                "   request.json(name);\n"+
+                "});";
+    const A9C = "app.post(\"/names\", (request, response) => {\n"+
+                "   const name = request.body.name;\n"+
+                "   names.push(name);\n"+
+                "   json.stringify(name);\n"+
+                "});";
+    const A9D = "app.fetch(\"/names\", (request, response) => {\n"+
+                "   const name = request.body.name;\n"+
+                "   names.push(name);\n"+
+                "   json.parse(name);\n"+
+                "});";
+
+    console.log(A9A);
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
