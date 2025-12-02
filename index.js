@@ -38,8 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const A5C = "form.setCustomValidity = true;"
     const A5D = "form.customValidity = true;";
 
-    const Q6 = ""
-
+    const Q6 = "If using custom validation, how do you throw your own exception?";
+    const A6A = "text = \"Error: (insert reason)\"\bthrow new Error(text)";
+    const A6B = "text = \"Error: (insert reason)\"\bform.noValidate = false;\bconsole.log(text);";
+    const A6C = "text = \"Error: (insert reason)\"\balert(text);";
+    const A6D = "text = \"Error: (insert reason)\"\berror(text);";
 
 
     const Q1choices = [A1A, A1B, A1C, A1D];
