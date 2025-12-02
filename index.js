@@ -5,7 +5,7 @@ const getElement = element => document.querySelector(element);
 document.addEventListener("DOMContentLoaded", () => {
     // Grabbing important HTML elements
     
-    
+    // IMPORTANT INFO FOR DEVS!! 
     // Variable naming convention for question text: Q{insert question number}
     // Variable naming convention for possible answers: A{insert question number}{insert A-D}
     const Q1 = "How do you create a new \"p\" element in the DOM?";
@@ -20,11 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const A2C = "Math.floor(Math.random() * 100);";
     const A2D = "Math.ceil(Math.randomFloat() * 100);";
 
-    const Q3 = "How to grab the text from an element where the element is assigned to the variable \"element\"?";
+    const Q3 = "How do you grab the text from an element where the element is assigned to the variable \"element\"?";
     const A3A = "element.textContent;";
     const A3B = "element.innerText;";
     const A3C = "element.value;";
     const A3D = "getText(element);";
+
+    const Q4 = "How do you loop through each value of an array named values?"
+    const A4A = "for value in values {};";
+    const A4B = "for (let values of value) {};";
+    const A4C = "forEach (let value of values) {};";
+    const A4D = "for (let value of values) {};"; 
 
 
 
