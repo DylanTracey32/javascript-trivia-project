@@ -3,8 +3,11 @@ import { Question } from "./question.js";
 
 const getElement = element => document.querySelector(element);
 document.addEventListener("DOMContentLoaded", () => {
-    // Grabbing important HTML elements
-    
+    // Initializations
+    let currentQuestion = 1;
+    const totalQuestions = 10;
+    let correctAnswers = 0;
+
     // IMPORTANT INFO FOR DEVS!! 
     // Variable naming convention for question text: Q{insert question number}
     // Variable naming convention for possible choices: C{insert question number}{insert A-D}
@@ -167,12 +170,26 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
-    
+    //load first question
     unusedQuestions = generateQuestion(unusedQuestions);
 
+    //display next question
     getElement("#next").addEventListener("click", () => {
 
-        unusedQuestions = generateQuestion(unusedQuestions);
+        currentQuestion++;
+
+        //If current question is less than total: generate question
+        if (currentQuestion < totalQuestions) {
+            unusedQuestions = generateQuestion(unusedQuestions);
+        }
+
+        //If current question is the last: hide next button and show submit button
+        if (currentQuestion == totalQuestions) {
+            getElement("#next").style.display = "none";
+            
+            //display submit button
+            getElement("#submit").style.display = "inline";
+        }
     })
 })
 
@@ -189,25 +206,33 @@ export function generateQuestion(unusedQuestions) {
     let selectedQuestion = unusedQuestions[randomQuestion];
     let selectedQuestionText = selectedQuestion.getQuestion();
     let selectedChoicesArray = selectedQuestion.getChoices();
+    
     //Remove selected question as possible question
     unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
-    // Make question text
+    
+    // Make and append question text
     const questionPElem = document.createElement("p");
     questionPElem.textContent = selectedQuestionText;
     getElement("#question").appendChild(questionPElem);
+    
+    //make and append choices
     for (let i = 0; i < selectedChoicesArray.length; i++) {
+        
         //make input element
         const inputElem = document.createElement("input");
         inputElem.type = "radio";
         inputElem.id = `choice${i}`;
         inputElem.name = "choices";
         inputElem.value = i;
+        
         //make label element
         const labelElem = document.createElement("label");
         labelElem.for = `choice${i}`;
         labelElem.textContent = selectedChoicesArray[i];
+        
         //make break element
         const breakElem = document.createElement("br");
+        
         //Append children to form
         getElement("#question").appendChild(inputElem);
         getElement("#question").appendChild(labelElem);
