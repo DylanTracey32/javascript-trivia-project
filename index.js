@@ -175,6 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let selectedChoicesArray = selectedQuestionObj.getChoices();
 
+    // Make question text
+    const questionPElem = document.createElement("p");
+    questionPElem.textContent = selectedQuestion;
+    getElement("#question").appendChild(questionPElem);
+
     for (let i = 0; i < selectedChoicesArray.length; i++) {
         
         //make input element
@@ -193,8 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
         //make break element
         const breakElem = document.createElement("br");
 
-        getElement("#choices").appendChild(inputElem);
-        getElement("#choices").appendChild(labelElem);
-        getElement("#choices").appendChild(breakElem);
+        getElement("#question").appendChild(inputElem);
+        getElement("#question").appendChild(labelElem);
+        getElement("#question").appendChild(breakElem);
     };
 })
