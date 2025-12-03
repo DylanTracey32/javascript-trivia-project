@@ -167,6 +167,21 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
+    
+    unusedQuestions = generateQuestion(unusedQuestions);
+
+    getElement("#next").addEventListener("click", () => {
+
+        unusedQuestions = generateQuestion(unusedQuestions);
+    })
+})
+
+//Gets random question, then creates and appends question-related elements 
+export function generateQuestion(unusedQuestions) {
+    
+    //Clear existing question
+    getElement("#question").innerHTML = "";
+    
     //Select a random question
     let randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
     
@@ -174,35 +189,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedQuestion = unusedQuestions[randomQuestion];
     let selectedQuestionText = selectedQuestion.getQuestion();
     let selectedChoicesArray = selectedQuestion.getChoices();
-
     //Remove selected question as possible question
     unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
-
     // Make question text
     const questionPElem = document.createElement("p");
     questionPElem.textContent = selectedQuestionText;
     getElement("#question").appendChild(questionPElem);
-
     for (let i = 0; i < selectedChoicesArray.length; i++) {
-        
         //make input element
         const inputElem = document.createElement("input");
         inputElem.type = "radio";
         inputElem.id = `choice${i}`;
         inputElem.name = "choices";
         inputElem.value = i;
-        
         //make label element
         const labelElem = document.createElement("label");
         labelElem.for = `choice${i}`;
         labelElem.textContent = selectedChoicesArray[i];
-
         //make break element
         const breakElem = document.createElement("br");
-
         //Append children to form
         getElement("#question").appendChild(inputElem);
         getElement("#question").appendChild(labelElem);
         getElement("#question").appendChild(breakElem);
     };
-})
+
+    return unusedQuestions;
+}
