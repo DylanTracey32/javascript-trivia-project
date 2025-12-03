@@ -149,7 +149,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const question15 = new Question(Q15, Q15choices, 3);
 
     //Consolidate questions into array
-    let unusedQuestions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15]
+    let unusedQuestions = [
+        question1,
+        question2,
+        question3,
+        question4,
+        question5,
+        question6,
+        question7,
+        question8,
+        question9,
+        question10,
+        question11,
+        question12,
+        question13,
+        question14,
+        question15
+    ]
+
+    let randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+
+    let selectedQuestionObj = unusedQuestions[randomQuestion];
+
+    let selectedQuestion = selectedQuestionObj.getQuestion();
+    let selectedChoicesArray = selectedQuestionObj.getChoices();
 
     
 })
