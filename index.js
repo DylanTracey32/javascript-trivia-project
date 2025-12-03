@@ -103,9 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const C13D = "A function";
 
     const Q14 = "How do you correctly code a ternary operator?";
-    const C14A = "let example = (condition) ? [insert value if true]:[insert value if false];";
+    const C14A = "let example = if (condition) ? [insert value if true]:[insert value if false];";
     const C14B = "let example = (condition) => [insert value if true]:[insert value if false];";
-    const C14C = "let example = if (condition) ? [insert value if true]:[insert value if false];";
+    const C14C = "let example = (condition) ? [insert value if true]:[insert value if false];";
     const C14D = "let example = if (condition) => [insert value if true]:[insert value if false];";
 
     const Q15 = "What error (if any) would this line of code give you: document.querySelectorAll(\"body\").filter(element => element > 30);";
@@ -133,19 +133,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Create question objects (integer parameter is the index of the correct choice)
     const question1 = new Question(Q1, Q1choices, 3);
-    const question2 = new Question(Q2, Q2choices, 3);
-    const question3 = new Question(Q3, Q3choices, 3);
+    const question2 = new Question(Q2, Q2choices, 2);
+    const question3 = new Question(Q3, Q3choices, 0);
     const question4 = new Question(Q4, Q4choices, 3);
-    const question5 = new Question(Q5, Q5choices, 3);
-    const question6 = new Question(Q6, Q6choices, 3);
-    const question7 = new Question(Q7, Q7choices, 3);
+    const question5 = new Question(Q5, Q5choices, 1);
+    const question6 = new Question(Q6, Q6choices, 0);
+    const question7 = new Question(Q7, Q7choices, 2);
     const question8 = new Question(Q8, Q8choices, 3);
-    const question9 = new Question(Q9, Q9choices, 3);
-    const question10 = new Question(Q10, Q10choices, 3);
-    const question11 = new Question(Q11, Q11choices, 3);
+    const question9 = new Question(Q9, Q9choices, 0);
+    const question10 = new Question(Q10, Q10choices, 2);
+    const question11 = new Question(Q11, Q11choices, 1);
     const question12 = new Question(Q12, Q12choices, 3);
-    const question13 = new Question(Q13, Q13choices, 3);
-    const question14 = new Question(Q14, Q14choices, 3);
+    const question13 = new Question(Q13, Q13choices, 1);
+    const question14 = new Question(Q14, Q14choices, 2);
     const question15 = new Question(Q15, Q15choices, 3);
 
 
