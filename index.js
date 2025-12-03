@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "   json.parse(name);\n"+
                 "});";
 
-    const Q10 = "For a class, how do you set attribute subtotal as private?";
+    const Q10 = "For a class, how do you set property subtotal as private?";
     const A10A = "private subtotal = null;";
     const A10B = "subtotal.private = null;";
     const A10C = "#subtotal = null;";
@@ -95,6 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const A12B = "const sum = numbers.reduce({total, elem} => elem += elem, total);";
     const A12C = "const sum = numbers.reduce(elem => elem += elem, 0);";
     const A12D = "const sum = numbers.reduce({total, elem} => total + elem, 0);";
+
+    const Q13 = "What is a good defintion of a callback function?";
+    const A13A = "A function that returns itself";
+    const A13B = "A function that is passed as an argument to another function";
+    const A13C = "A function that returns the argument but modified";
+    const A13D = "A function";
 
     const Q1choices = [A1A, A1B, A1C, A1D];
 
