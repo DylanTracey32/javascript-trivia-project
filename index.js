@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const C5D = "form.customValidity = true;";
 
     const Q6 = "If using custom validation, how do you throw your own exception?";
-    const C6A = "text = \"Error: (insert reason)\"\bthrow new Error(text)";
-    const C6B = "text = \"Error: (insert reason)\"\bform.noValidate = false;\bconsole.log(text);";
-    const C6C = "text = \"Error: (insert reason)\"\balert(text);";
-    const C6D = "text = \"Error: (insert reason)\"\berror(text);";
+    const C6A = "text = \"Error: (insert reason)\";throw new Error(text);";
+    const C6B = "text = \"Error: (insert reason)\";form.noValidate = false;\bconsole.log(text);";
+    const C6C = "text = \"Error: (insert reason)\";alert(text);";
+    const C6D = "text = \"Error: (insert reason)\";error(text);";
 
     const Q7 = "How do you extend another class named Employee with the class Cashier?"
     const C7A = "class Cashier inherits Employee {};";
@@ -172,7 +172,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedQuestionObj = unusedQuestions[randomQuestion];
 
     let selectedQuestion = selectedQuestionObj.getQuestion();
+
     let selectedChoicesArray = selectedQuestionObj.getChoices();
 
-    console.log(getElement("#choiceA").value);
+    for (let i = 0; i < selectedChoicesArray.length; i++) {
+        
+        //make input element
+        const inputElem = document.createElement("input");
+        inputElem.type = "radio";
+        inputElem.id = `choice${i}`;
+        inputElem.name = "choices";
+        inputElem.value = i;
+        
+        
+        //make label element
+        const labelElem = document.createElement("label");
+        labelElem.for = `choice${i}`;
+        labelElem.textContent = selectedChoicesArray[i];
+
+        //make break element
+        const breakElem = document.createElement("br");
+
+        getElement("#choices").appendChild(inputElem);
+        getElement("#choices").appendChild(labelElem);
+        getElement("#choices").appendChild(breakElem);
+    };
 })

@@ -21,11 +21,4 @@ export class Question {
     set selectedChoice(choice) {
         this.#selectedChoice = choice;
     }
-
-    isAnswer(choice) {
-        if (choice != this.choices[this.answer]) {
-            return false;
-        }
-        return true;
-    }
 }
