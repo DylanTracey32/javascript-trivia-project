@@ -167,17 +167,20 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
+    //Select a random question
     let randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+    
+    //Access selected question
+    let selectedQuestion = unusedQuestions[randomQuestion];
+    let selectedQuestionText = selectedQuestion.getQuestion();
+    let selectedChoicesArray = selectedQuestion.getChoices();
 
-    let selectedQuestionObj = unusedQuestions[randomQuestion];
-
-    let selectedQuestion = selectedQuestionObj.getQuestion();
-
-    let selectedChoicesArray = selectedQuestionObj.getChoices();
+    //Remove selected question as possible question
+    unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
 
     // Make question text
     const questionPElem = document.createElement("p");
-    questionPElem.textContent = selectedQuestion;
+    questionPElem.textContent = selectedQuestionText;
     getElement("#question").appendChild(questionPElem);
 
     for (let i = 0; i < selectedChoicesArray.length; i++) {
@@ -189,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
         inputElem.name = "choices";
         inputElem.value = i;
         
-        
         //make label element
         const labelElem = document.createElement("label");
         labelElem.for = `choice${i}`;
@@ -198,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //make break element
         const breakElem = document.createElement("br");
 
+        //Append children to form
         getElement("#question").appendChild(inputElem);
         getElement("#question").appendChild(labelElem);
         getElement("#question").appendChild(breakElem);
