@@ -96,12 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const A12C = "const sum = numbers.reduce(elem => elem += elem, 0);";
     const A12D = "const sum = numbers.reduce({total, elem} => total + elem, 0);";
 
-    const Q13 = "What is a good defintion of a callback function?";
+    const Q13 = "What is a good definition of a callback function?";
     const A13A = "A function that returns itself";
     const A13B = "A function that is passed as an argument to another function";
     const A13C = "A function that returns the argument but modified";
     const A13D = "A function";
 
+    const Q14 = "How do you correctly code a ternary operator?";
+    const A14A = "let example = (condition) ? [insert value if true]:[insert value if false];";
+    const A14B = "let example = (condition) => [insert value if true]:[insert value if false];";
+    const A14C = "let example = if (condition) ? [insert value if true]:[insert value if false];";
+    const A14D = "let example = if (condition) => [insert value if true]:[insert value if false];";
+
+    const Q15 = "What error (if any) would this line of code give you: document.querySelectorAll(\"body\").filter(element => element > 30);";
+    const A15A = "ReferenceError";
+    const A15B = "RangeError";
+    const A15C = "SyntaxError";
+    const A15D = "TypeError";
+    
     const Q1choices = [A1A, A1B, A1C, A1D];
 
     const question1 = new Question(Q1, Q1choices, 3);
