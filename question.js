@@ -1,15 +1,9 @@
 export class Question {
+    #selectedChoice = null;
     constructor(question, choices, answer) {
         this.question = question;
         this.choices = choices;
         this.answer = answer
-    }
-
-    isAnswer(choice) {
-        if (choice != this.choices[this.answer]) {
-            return false;
-        }
-        return true;
     }
 
     getQuestion() {
@@ -18,5 +12,20 @@ export class Question {
 
     getChoices() {
         return this.choices;
+    }
+
+    get selectedChoice() {
+        return this.#selectedChoice;
+    }
+
+    set selectedChoice(choice) {
+        this.#selectedChoice = choice;
+    }
+
+    isAnswer(choice) {
+        if (choice != this.choices[this.answer]) {
+            return false;
+        }
+        return true;
     }
 }

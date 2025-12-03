@@ -174,5 +174,5 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedQuestion = selectedQuestionObj.getQuestion();
     let selectedChoicesArray = selectedQuestionObj.getChoices();
 
-    
+    console.log(getElement("#choiceA").value);
 })
