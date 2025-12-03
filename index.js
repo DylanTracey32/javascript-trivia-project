@@ -148,7 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const question14 = new Question(Q14, Q14choices, 2);
     const question15 = new Question(Q15, Q15choices, 3);
 
-
+    //Consolidate questions into array
+    let unusedQuestions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15]
 
     
 })
