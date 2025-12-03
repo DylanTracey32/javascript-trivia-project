@@ -1,3 +1,11 @@
+#question {
+    display: none;
+}
+
+#next {
+    display: none;
+}
+
 #previous {
     display: none;
 }

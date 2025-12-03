@@ -4,6 +4,7 @@ import { Question } from "./question.js";
 const getElement = element => document.querySelector(element);
 document.addEventListener("DOMContentLoaded", () => {
     // Initializations
+    let usedQuestions = [];
     let currentQuestion = 1;
     const totalQuestions = 10;
     let correctAnswers = 0;
@@ -170,19 +171,29 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
-    //load first question
-    unusedQuestions = generateQuestion(unusedQuestions);
+    getElement("#begin").addEventListener("click", () => {
+        //load first question
+        getElement("#begin").style.display = "none";
+        getElement("#question").style.display = "block";
+        ({ unusedQuestions, usedQuestions } = generateQuestion(unusedQuestions, usedQuestions));
+        getElement("#next").style.display = "inline";
+    })
+    
 
     //display next question
     getElement("#next").addEventListener("click", () => {
 
         currentQuestion++;
-
-        //If current question is less than total: generate question
-        if (currentQuestion < totalQuestions) {
-            unusedQuestions = generateQuestion(unusedQuestions);
+        console.log(currentQuestion)
+        console.log(usedQuestions[currentQuestion - 1])
+        if (currentQuestion == 2) {
+            getElement("#previous").style.display = "inline";
         }
 
+        //If current question is less than total: generate question
+        if (currentQuestion <= totalQuestions) {
+            ({ unusedQuestions, usedQuestions } = generateQuestion(unusedQuestions, usedQuestions));
+        }
         //If current question is the last: hide next button and show submit button
         if (currentQuestion == totalQuestions) {
             getElement("#next").style.display = "none";
@@ -191,23 +202,44 @@ document.addEventListener("DOMContentLoaded", () => {
             getElement("#submit").style.display = "inline";
         }
     })
+
+    getElement("#previous").addEventListener("click", () => {
+
+        currentQuestion--;
+
+        if (currentQuestion == 1) {
+            getElement("#previous").style.display = "none";
+        }
+        
+        displayPreviousQuestion(currentQuestion, usedQuestions);
+    })
 })
 
+
+
+
+
+
+
+
 //Gets random question, then creates and appends question-related elements 
-export function generateQuestion(unusedQuestions) {
+function generateQuestion(unusedQuestions, usedQuestions) {
     
     //Clear existing question
     getElement("#question").innerHTML = "";
     
     //Select a random question
-    let randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+    const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
     
     //Access selected question
-    let selectedQuestion = unusedQuestions[randomQuestion];
-    let selectedQuestionText = selectedQuestion.getQuestion();
-    let selectedChoicesArray = selectedQuestion.getChoices();
+    const selectedQuestion = unusedQuestions[randomQuestion];
+    const selectedQuestionText = selectedQuestion.getQuestion();
+    const selectedChoicesArray = selectedQuestion.getChoices();
     
-    //Remove selected question as possible question
+    //add used question to used questions array and remove selected question as possible question 
+    usedQuestions.push(unusedQuestions[randomQuestion])
+
+
     unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
     
     // Make and append question text
@@ -239,5 +271,13 @@ export function generateQuestion(unusedQuestions) {
         getElement("#question").appendChild(breakElem);
     };
 
-    return unusedQuestions;
+    return {
+        unusedQuestions, 
+        usedQuestions
+    };
+}
+
+function displayPreviousQuestion(previousQuestionIndex, usedQuestions) {
+    const previousQuestion = usedQuestions[previousQuestionIndex - 1];
+    
 }
