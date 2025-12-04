@@ -182,22 +182,39 @@ document.addEventListener("DOMContentLoaded", () => {
         const choice2 = getElement("#choice2").value;
         const choice3 = getElement("#choice3").value;
         const choices = [choice0, choice1, choice2, choice3];
-        const answer = getElement("#addQuestionForm").value;
+        let answer = null;
+        if (getElement("#correct0").checked) {
+            answer = 0;
+        }
+        else if (getElement("#correct1").checked) {
+            answer = 1;
+        }
+        else if (getElement("#correct2").checked) {
+            answer = 2;
+        }
+        else if (getElement("#correct3").checked) {
+            answer = 3;
+        }
         const newQuestion = new Question(newQuestionText, choices, answer);
         unusedQuestions.push(newQuestion);
+        getElement("#addQuestionForm").reset();
     })
 
-    //choose questions
-    for (let i = 0; i < totalQuestions; i++) {
-        //Select a random question
-        const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
 
-        //add used question to used questions array and remove selected question as possible question
-        usedQuestions.push(unusedQuestions[randomQuestion]);
-        unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
-    };
 
     getElement("#begin").addEventListener("click", () => {
+        usedQuestions = [];
+
+        //choose questions
+        for (let i = 0; i < totalQuestions; i++) {
+            //Select a random question
+            const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+
+            //add used question to used questions array and remove selected question as possible question
+            usedQuestions.push(unusedQuestions[randomQuestion]);
+            unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
+        };
+        
         //toggle qa mode
         if (getElement("#qa").checked == true) {
             qaMode = true;
