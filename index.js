@@ -173,6 +173,20 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
+    //Add a question functionality
+    getElement("#addQuestionForm").addEventListener("submit", (evt) => {
+        evt.preventDefault();
+        const newQuestionText = getElement("#newQuestionText").value;
+        const choice0 = getElement("#choice0").value;
+        const choice1 = getElement("#choice1").value;
+        const choice2 = getElement("#choice2").value;
+        const choice3 = getElement("#choice3").value;
+        const choices = [choice0, choice1, choice2, choice3];
+        const answer = getElement("#addQuestionForm").value;
+        const newQuestion = new Question(newQuestionText, choices, answer);
+        unusedQuestions.push(newQuestion);
+    })
+
     //choose questions
     for (let i = 0; i < totalQuestions; i++) {
         //Select a random question
@@ -188,6 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (getElement("#qa").checked == true) {
             qaMode = true;
         }
+
+        getElement("#add-question-section").style.display = "none";
         
         
         //load first question
@@ -215,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             getElement("#next").style.display = "none";
             
             //display submit button
+            getElement("#submit").disabled = true;
             getElement("#submit").style.display = "inline";
         }
     })
@@ -258,26 +275,35 @@ document.addEventListener("DOMContentLoaded", () => {
         scoreDisplayElem.textContent = `You scored: ${correctAnswers}/10`
         getElement("body").appendChild(scoreDisplayElem);
 
+        const figureElem = document.createElement("figure");
         const pictureElem = document.createElement("img");
+        const captionElem = document.createElement("figcaption");
+        figureElem.appendChild(pictureElem);
+        figureElem.appendChild(captionElem);
 
         //Assign picture based on score
         if (correctAnswers == 0) {
             pictureElem.src = "./images/MarsClimateOrbiter.jpg";
+            captionElem.textContent = "Mars Climate Orbiter Developer";
         }
         else if (correctAnswers >= 1 && correctAnswers <= 4) {
             pictureElem.src = "./images/junior.jpg";
+            captionElem.textContent = "Junior Developer";
         }
         else if (correctAnswers >= 5 && correctAnswers <= 7) {
             pictureElem.src = "./images/senior.jpg";
+            captionElem.textContent = "Senior Developer";
         }
         else if (correctAnswers >= 8 && correctAnswers <= 9) {
             pictureElem.src = "./images/linus.jpg";
+            captionElem.textContent = "Linus Torvalds";
         }
         else {
             pictureElem.src = "./images/terry.jpg";
+            captionElem.textContent = "Terry Davis";
         }
         
-        getElement("body").appendChild(pictureElem);
+        getElement("body").appendChild(figureElem);
     })
 })
 
