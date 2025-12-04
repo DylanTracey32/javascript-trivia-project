@@ -244,7 +244,30 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        getElement("#question").submit();
+        const scoreDisplayElem = document.createElement("p");
+        scoreDisplayElem.textContent = `You scored: ${correctAnswers}/10`
+        getElement("body").appendChild(scoreDisplayElem);
+
+        const pictureElem = document.createElement("img");
+
+        //Assign picture based on score
+        if (correctAnswers == 0) {
+            pictureElem.src = "./images/MarsClimateOrbiter.jpg";
+        }
+        else if (correctAnswers >= 1 && correctAnswers <= 4) {
+            pictureElem.src = "./images/junior.jpg";
+        }
+        else if (correctAnswers >= 5 && correctAnswers <= 7) {
+            pictureElem.src = "./images/senior.jpg";
+        }
+        else if (correctAnswers >= 8 && correctAnswers <= 9) {
+            pictureElem.src = "./images/linus.jpg";
+        }
+        else {
+            pictureElem.src = "./images/terry.jpg";
+        }
+        
+        getElement("body").appendChild(pictureElem);
     })
 })
 
