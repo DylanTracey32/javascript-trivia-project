@@ -3,8 +3,14 @@ import { Question } from "./question.js";
 
 const getElement = element => document.querySelector(element);
 document.addEventListener("DOMContentLoaded", () => {
-    // Grabbing important HTML elements
+    // Initializations
+    let usedQuestions = [];
     
+    const totalQuestions = 10;
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    let qaMode = false;
+
     // IMPORTANT INFO FOR DEVS!! 
     // Variable naming convention for question text: Q{insert question number}
     // Variable naming convention for possible choices: C{insert question number}{insert A-D}
@@ -39,10 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const C5D = "form.customValidity = true;";
 
     const Q6 = "If using custom validation, how do you throw your own exception?";
-    const C6A = "text = \"Error: (insert reason)\"\bthrow new Error(text)";
-    const C6B = "text = \"Error: (insert reason)\"\bform.noValidate = false;\bconsole.log(text);";
-    const C6C = "text = \"Error: (insert reason)\"\balert(text);";
-    const C6D = "text = \"Error: (insert reason)\"\berror(text);";
+    const C6A = "text = \"Error: (insert reason)\";throw new Error(text);";
+    const C6B = "text = \"Error: (insert reason)\";form.noValidate = false;\bconsole.log(text);";
+    const C6C = "text = \"Error: (insert reason)\";alert(text);";
+    const C6D = "text = \"Error: (insert reason)\";error(text);";
 
     const Q7 = "How do you extend another class named Employee with the class Cashier?"
     const C7A = "class Cashier inherits Employee {};";
@@ -114,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const C15C = "SyntaxError";
     const C15D = "TypeError";
     
-    //consolidate possible answers for each question into arrays
+    //consolidate possible choices for each question into arrays
     const Q1choices = [C1A, C1B, C1C, C1D];
     const Q2choices = [C2A, C2B, C2C, C2D];
     const Q3choices = [C3A, C3B, C3C, C3D];
@@ -148,7 +154,216 @@ document.addEventListener("DOMContentLoaded", () => {
     const question14 = new Question(Q14, Q14choices, 2);
     const question15 = new Question(Q15, Q15choices, 3);
 
+    //Consolidate questions into array
+    let unusedQuestions = [
+        question1,
+        question2,
+        question3,
+        question4,
+        question5,
+        question6,
+        question7,
+        question8,
+        question9,
+        question10,
+        question11,
+        question12,
+        question13,
+        question14,
+        question15
+    ]
+
+    //Add a question functionality
+    getElement("#addQuestionForm").addEventListener("submit", (evt) => {
+        evt.preventDefault();
+        const newQuestionText = getElement("#newQuestionText").value;
+        const choice0 = getElement("#choice0").value;
+        const choice1 = getElement("#choice1").value;
+        const choice2 = getElement("#choice2").value;
+        const choice3 = getElement("#choice3").value;
+        const choices = [choice0, choice1, choice2, choice3];
+        let answer = null;
+        if (getElement("#correct0").checked) {
+            answer = 0;
+        }
+        else if (getElement("#correct1").checked) {
+            answer = 1;
+        }
+        else if (getElement("#correct2").checked) {
+            answer = 2;
+        }
+        else if (getElement("#correct3").checked) {
+            answer = 3;
+        }
+        const newQuestion = new Question(newQuestionText, choices, answer);
+        unusedQuestions.push(newQuestion);
+        getElement("#addQuestionForm").reset();
+    })
 
 
+
+    getElement("#begin").addEventListener("click", () => {
+        usedQuestions = [];
+
+        //choose questions
+        for (let i = 0; i < totalQuestions; i++) {
+            //Select a random question
+            const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+
+            //add used question to used questions array and remove selected question as possible question
+            usedQuestions.push(unusedQuestions[randomQuestion]);
+            unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
+        };
+        
+        //toggle qa mode
+        if (getElement("#qa").checked == true) {
+            qaMode = true;
+        }
+
+        getElement("#add-question-section").style.display = "none";
+        
+        
+        //load first question
+        getElement("#begin").style.display = "none";
+        getElement("#question").style.display = "block";
+        displayQuestion(usedQuestions[currentQuestion], qaMode);
+        getElement("#next").style.display = "inline";
+
+        getElement("#qa").style.display = "none";
+        getElement("#qaLabel").style.display = "none";
+    })
     
+    //display next question
+    getElement("#next").addEventListener("click", () => {
+
+        currentQuestion++;
+        getElement("#previous").style.display = "inline";
+
+        //If current question is less than total: display question
+        if (currentQuestion <= totalQuestions - 1) {
+            displayQuestion(usedQuestions[currentQuestion], qaMode);
+        }
+        //If current question is the last: hide next button and show submit button
+        if (currentQuestion == totalQuestions - 1) {
+            getElement("#next").style.display = "none";
+            
+            //display submit button
+            getElement("#submit").disabled = true;
+            getElement("#submit").style.display = "inline";
+        }
+    })
+
+    //previous button logic
+    getElement("#previous").addEventListener("click", () => {
+        currentQuestion--;
+        if (currentQuestion == 0) {
+            getElement("#previous").style.display = "none";
+        }
+
+
+        
+        getElement("#submit").style.display = "none";
+        getElement("#next").style.display = "inline";
+        displayQuestion(usedQuestions[currentQuestion], qaMode);
+    })
+
+    //Save answer
+    getElement("#question").addEventListener("change", (evt) => {
+        usedQuestions[currentQuestion].choice = evt.target.value;
+        getElement("#next").disabled = false;
+        if (currentQuestion == totalQuestions - 1) {
+            getElement("#submit").disabled = false;
+        }
+    })
+
+    //Check answers
+    getElement("#submit").addEventListener("click", () => {
+        getElement("#submit").style.display = "none";
+        getElement("#previous").style.display = "none";
+        getElement("#question").style.display = "none";
+        
+        for (let question of usedQuestions) {
+            if (question.choice == question.answer) {
+                correctAnswers++;
+            }
+        }
+
+        const scoreDisplayElem = document.createElement("p");
+        scoreDisplayElem.textContent = `You scored: ${correctAnswers}/10`
+        getElement("body").appendChild(scoreDisplayElem);
+
+        const figureElem = document.createElement("figure");
+        const pictureElem = document.createElement("img");
+        const captionElem = document.createElement("figcaption");
+        figureElem.appendChild(pictureElem);
+        figureElem.appendChild(captionElem);
+
+        //Assign picture based on score
+        if (correctAnswers == 0) {
+            pictureElem.src = "./images/MarsClimateOrbiter.jpg";
+            captionElem.textContent = "Mars Climate Orbiter Developer";
+        }
+        else if (correctAnswers >= 1 && correctAnswers <= 4) {
+            pictureElem.src = "./images/junior.jpg";
+            captionElem.textContent = "Junior Developer";
+        }
+        else if (correctAnswers >= 5 && correctAnswers <= 7) {
+            pictureElem.src = "./images/senior.jpg";
+            captionElem.textContent = "Senior Developer";
+        }
+        else if (correctAnswers >= 8 && correctAnswers <= 9) {
+            pictureElem.src = "./images/linus.jpg";
+            captionElem.textContent = "Linus Torvalds";
+        }
+        else {
+            pictureElem.src = "./images/terry.jpg";
+            captionElem.textContent = "Terry Davis";
+        }
+        
+        getElement("body").appendChild(figureElem);
+    })
 })
+
+function displayQuestion(currentQuestion, qaMode) {
+    //Clear old question
+    getElement("#question").innerHTML = "";
+    // Make and append question
+    const questionPElem = document.createElement("p");
+    questionPElem.textContent = currentQuestion.getQuestion();
+    getElement("#question").appendChild(questionPElem);
+    
+    //make and append choices
+    for (let i = 0; i < currentQuestion.getChoices().length; i++) {
+        
+        //make input element
+        const inputElem = document.createElement("input");
+        inputElem.type = "radio";
+        inputElem.id = `choice${i}`;
+        inputElem.name = "choices";
+        inputElem.value = i;
+        
+        //make label element
+        const labelElem = document.createElement("label");
+        labelElem.for = `choice${i}`;
+        labelElem.textContent = currentQuestion.getChoices()[i];
+        if (inputElem.value == currentQuestion.answer && qaMode == true) {
+            labelElem.style.color = "green";
+        }
+        
+        //make break element
+        const breakElem = document.createElement("br");
+        
+        //Append children to form
+        getElement("#question").appendChild(inputElem);
+        getElement("#question").appendChild(labelElem);
+        getElement("#question").appendChild(breakElem);
+    };
+    //check for previous answer
+    if (currentQuestion.choice != null) {
+        getElement("#next").disabled = false;
+        getElement(`#choice${currentQuestion.choice}`).checked = true;
+    }
+    else {
+        getElement("#next").disabled = true;
+    }
+}

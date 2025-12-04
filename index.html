@@ -1,27 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" src="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <h1>JavaScript Quiz!</h1>
-    <form>
-        <label id="question" for="answers">testing</label>
-        <!-- <p id="sampleCode"></p> -->
-        <div value="answers">
-            <input type="radio" id="answerA" value="answerA">
-            <label for="answerA">placeholder A</label><br>
-            <input type="radio" id="answerB" value="answerB">
-            <label for="answerB">placeholder B</label><br>
-            <input type="radio" id="answerC" value="answerC">
-            <label for="answerC">placeholder C</label><br>
-            <input type="radio" id="answerD" value="answerD">
-            <label for="answerD">placeholder D</label><br>
-        </div>
-    </form>
-</body>
-<script src="index.js" type="module"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Javascript Quiz!</title>
+    </head>
+    <body>
+        <h1>JavaScript Quiz!</h1>
+        <label for="qa" id="qaLabel">
+        QA mode
+        <input type="checkbox" id="qa"></input>
+        </label><br><br>
+        <button id="begin">Begin!</button>
+        <form id="question">
+        </form>
+        <button id="previous">Previous</button>
+        <button id="next" disabled>Next</button>
+        <button id="submit" disabled>Submit</button>
+        <section id="add-question-section">
+            <h2>Add a New Quiz Question</h2>
+            <form id="addQuestionForm">
+                <div class="field-group">
+                    <label for="newQuestionText">Question text</label>
+                    <textarea id="newQuestionText" name="questionText" rows="3" required></textarea>
+                </div>
+                <div class="field-group">
+                    <p>Choices (type 4 options and pick which one is correct)</p>
+                    <div class="choice-row">
+                        <label for="choice0">Choice 1</label>
+                        <input id="choice0" name="choice0" type="text" required>
+                        <label class="correct-flag">
+                        <input type="radio" name="correctChoice" value="0" id="correct0" required>
+                        Correct
+                        </label>
+                    </div>
+                    <div class="choice-row">
+                        <label for="choice1">Choice 2</label>
+                        <input id="choice1" name="choice1" type="text" required>
+                        <label class="correct-flag">
+                        <input type="radio" name="correctChoice" value="1" id="correct1">
+                        Correct
+                        </label>
+                    </div>
+                    <div class="choice-row">
+                        <label for="choice2">Choice 3</label>
+                        <input id="choice2" name="choice2" type="text" required>
+                        <label class="correct-flag">
+                        <input type="radio" name="correctChoice" value="2" id="correct2">
+                        Correct
+                        </label>
+                    </div>
+                    <div class="choice-row">
+                        <label for="choice3">Choice 4</label>
+                        <input id="choice3" name="choice3" type="text" required>
+                        <label class="correct-flag">
+                        <input type="radio" name="correctChoice" value="3" id="correct3">
+                        Correct
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" id="addQuestionButton">Add Question</button>
+                <p id="addQuestionMessage" aria-live="polite"></p>
+            </form>
+        </section>
+    </body>
+    <script src="index.js" type="module"></script>
 </html>
