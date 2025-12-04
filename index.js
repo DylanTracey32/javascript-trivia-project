@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalQuestions = 10;
     let currentQuestion = 0;
     let correctAnswers = 0;
+    let qaMode = false;
 
     // IMPORTANT INFO FOR DEVS!! 
     // Variable naming convention for question text: Q{insert question number}
@@ -183,11 +184,20 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     getElement("#begin").addEventListener("click", () => {
+        //toggle qa mode
+        if (getElement("#qa").checked == true) {
+            qaMode = true;
+        }
+        
+        
         //load first question
         getElement("#begin").style.display = "none";
         getElement("#question").style.display = "block";
-        displayQuestion(usedQuestions[currentQuestion]);
+        displayQuestion(usedQuestions[currentQuestion], qaMode);
         getElement("#next").style.display = "inline";
+
+        getElement("#qa").style.display = "none";
+        getElement("#qaLabel").style.display = "none";
     })
     
     //display next question
@@ -198,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //If current question is less than total: display question
         if (currentQuestion <= totalQuestions - 1) {
-            displayQuestion(usedQuestions[currentQuestion]);
+            displayQuestion(usedQuestions[currentQuestion], qaMode);
         }
         //If current question is the last: hide next button and show submit button
         if (currentQuestion == totalQuestions - 1) {
@@ -220,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         getElement("#submit").style.display = "none";
         getElement("#next").style.display = "inline";
-        displayQuestion(usedQuestions[currentQuestion]);
+        displayQuestion(usedQuestions[currentQuestion], qaMode);
     })
 
     //Save answer
@@ -271,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function displayQuestion(currentQuestion) {
+function displayQuestion(currentQuestion, qaMode) {
     //Clear old question
     getElement("#question").innerHTML = "";
     // Make and append question
@@ -293,6 +303,9 @@ function displayQuestion(currentQuestion) {
         const labelElem = document.createElement("label");
         labelElem.for = `choice${i}`;
         labelElem.textContent = currentQuestion.getChoices()[i];
+        if (inputElem.value == currentQuestion.answer && qaMode == true) {
+            labelElem.style.color = "green";
+        }
         
         //make break element
         const breakElem = document.createElement("br");
