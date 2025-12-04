@@ -5,8 +5,9 @@ const getElement = element => document.querySelector(element);
 document.addEventListener("DOMContentLoaded", () => {
     // Initializations
     let usedQuestions = [];
-    let currentQuestion = 1;
+    
     const totalQuestions = 10;
+    let currentQuestion = 0;
     let correctAnswers = 0;
 
     // IMPORTANT INFO FOR DEVS!! 
@@ -118,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const C15C = "SyntaxError";
     const C15D = "TypeError";
     
-    //consolidate possible answers for each question into arrays
+    //consolidate possible choices for each question into arrays
     const Q1choices = [C1A, C1B, C1C, C1D];
     const Q2choices = [C2A, C2B, C2C, C2D];
     const Q3choices = [C3A, C3B, C3C, C3D];
@@ -171,31 +172,36 @@ document.addEventListener("DOMContentLoaded", () => {
         question15
     ]
 
+    //choose questions
+    for (let i = 0; i < totalQuestions; i++) {
+        //Select a random question
+        const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
+
+        //add used question to used questions array and remove selected question as possible question
+        usedQuestions.push(unusedQuestions[randomQuestion]);
+        unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
+    };
+
     getElement("#begin").addEventListener("click", () => {
         //load first question
         getElement("#begin").style.display = "none";
         getElement("#question").style.display = "block";
-        ({ unusedQuestions, usedQuestions } = generateQuestion(unusedQuestions, usedQuestions));
+        displayQuestion(usedQuestions[currentQuestion]);
         getElement("#next").style.display = "inline";
     })
     
-
     //display next question
     getElement("#next").addEventListener("click", () => {
 
         currentQuestion++;
-        console.log(currentQuestion)
-        console.log(usedQuestions[currentQuestion - 1])
-        if (currentQuestion == 2) {
-            getElement("#previous").style.display = "inline";
-        }
+        getElement("#previous").style.display = "inline";
 
-        //If current question is less than total: generate question
-        if (currentQuestion <= totalQuestions) {
-            ({ unusedQuestions, usedQuestions } = generateQuestion(unusedQuestions, usedQuestions));
+        //If current question is less than total: display question
+        if (currentQuestion <= totalQuestions - 1) {
+            displayQuestion(usedQuestions[currentQuestion]);
         }
         //If current question is the last: hide next button and show submit button
-        if (currentQuestion == totalQuestions) {
+        if (currentQuestion == totalQuestions - 1) {
             getElement("#next").style.display = "none";
             
             //display submit button
@@ -204,51 +210,28 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     getElement("#previous").addEventListener("click", () => {
-
         currentQuestion--;
-
-        if (currentQuestion == 1) {
+        console.log(currentQuestion)
+        if (currentQuestion == 0) {
             getElement("#previous").style.display = "none";
         }
         
-        displayPreviousQuestion(currentQuestion, usedQuestions);
+        getElement("#submit").style.display = "none";
+        getElement("#next").style.display = "inline";
+        displayQuestion(usedQuestions[currentQuestion]);
     })
 })
 
-
-
-
-
-
-
-
-//Gets random question, then creates and appends question-related elements 
-function generateQuestion(unusedQuestions, usedQuestions) {
-    
-    //Clear existing question
+function displayQuestion(currentQuestion) {
+    //Clear old question
     getElement("#question").innerHTML = "";
-    
-    //Select a random question
-    const randomQuestion = Math.floor(Math.random() * unusedQuestions.length);
-    
-    //Access selected question
-    const selectedQuestion = unusedQuestions[randomQuestion];
-    const selectedQuestionText = selectedQuestion.getQuestion();
-    const selectedChoicesArray = selectedQuestion.getChoices();
-    
-    //add used question to used questions array and remove selected question as possible question 
-    usedQuestions.push(unusedQuestions[randomQuestion])
-
-
-    unusedQuestions = unusedQuestions.filter(question => question != unusedQuestions[randomQuestion]);
-    
-    // Make and append question text
+    // Make and append question
     const questionPElem = document.createElement("p");
-    questionPElem.textContent = selectedQuestionText;
+    questionPElem.textContent = currentQuestion.getQuestion();
     getElement("#question").appendChild(questionPElem);
     
     //make and append choices
-    for (let i = 0; i < selectedChoicesArray.length; i++) {
+    for (let i = 0; i < currentQuestion.getChoices().length; i++) {
         
         //make input element
         const inputElem = document.createElement("input");
@@ -260,7 +243,7 @@ function generateQuestion(unusedQuestions, usedQuestions) {
         //make label element
         const labelElem = document.createElement("label");
         labelElem.for = `choice${i}`;
-        labelElem.textContent = selectedChoicesArray[i];
+        labelElem.textContent = currentQuestion.getChoices()[i];
         
         //make break element
         const breakElem = document.createElement("br");
@@ -270,14 +253,4 @@ function generateQuestion(unusedQuestions, usedQuestions) {
         getElement("#question").appendChild(labelElem);
         getElement("#question").appendChild(breakElem);
     };
-
-    return {
-        unusedQuestions, 
-        usedQuestions
-    };
-}
-
-function displayPreviousQuestion(previousQuestionIndex, usedQuestions) {
-    const previousQuestion = usedQuestions[previousQuestionIndex - 1];
-    
 }
