@@ -1,5 +1,5 @@
 export class Question {
-    #selectedChoice = null;
+    #choice = null;
     constructor(question, choices, answer) {
         this.question = question;
         this.choices = choices;
@@ -14,11 +14,11 @@ export class Question {
         return this.choices;
     }
 
-    get selectedChoice() {
-        return this.#selectedChoice;
+    get choice() {
+        return this.#choice;
     }
 
-    set selectedChoice(choice) {
-        this.#selectedChoice = choice;
+    set choice(choice) {
+        this.#choice = choice;
     }
 }

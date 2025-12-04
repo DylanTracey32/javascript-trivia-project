@@ -209,16 +209,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    //previous button logic
     getElement("#previous").addEventListener("click", () => {
         currentQuestion--;
-        console.log(currentQuestion)
         if (currentQuestion == 0) {
             getElement("#previous").style.display = "none";
         }
+
+
         
         getElement("#submit").style.display = "none";
         getElement("#next").style.display = "inline";
         displayQuestion(usedQuestions[currentQuestion]);
+    })
+
+    //Save answer
+    getElement("#question").addEventListener("change", (evt) => {
+        usedQuestions[currentQuestion].choice = evt.target.value;
+        getElement("#next").disabled = false;
+        if (currentQuestion == totalQuestions - 1) {
+            getElement("#submit").disabled = false;
+        }
+    })
+
+    //Check answers
+    getElement("#submit").addEventListener("click", () => {
+        getElement("#submit").style.display = "none";
+        getElement("#previous").style.display = "none";
+        getElement("#question").style.display = "none";
+        
+        for (let question of usedQuestions) {
+            if (question.choice == question.answer) {
+                correctAnswers++;
+            }
+        }
+
+        getElement("#question").submit();
     })
 })
 
@@ -253,4 +279,12 @@ function displayQuestion(currentQuestion) {
         getElement("#question").appendChild(labelElem);
         getElement("#question").appendChild(breakElem);
     };
+    //check for previous answer
+    if (currentQuestion.choice != null) {
+        getElement("#next").disabled = false;
+        getElement(`#choice${currentQuestion.choice}`).checked = true;
+    }
+    else {
+        getElement("#next").disabled = true;
+    }
 }
